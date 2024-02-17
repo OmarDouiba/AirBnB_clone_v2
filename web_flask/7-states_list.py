@@ -10,12 +10,14 @@ app = Flask(__name__)
 
 @app.route('/states_list', strict_slashes=False)
 def states_list():
+    """function that display all current state in storage"""
     data = storage.all("State").values()
     return render_template('7-states_list.html', data=data)
 
 
 @app.teardown_appcontext
 def teardown_db(exception):
+    """function that removes the current SQLAlchemy Session"""
     storage.close()
 
 
