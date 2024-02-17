@@ -17,7 +17,7 @@ def states_list():
 
 @app.route('/cities_by_states', strict_slashes=False)
 def cities_by_states():
-    data = storage.all("states").values()
+    data = storage.all("State").values()
     return render_template('8-cities_by_states.html', data=data)
 
 
