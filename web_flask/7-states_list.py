@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 """
-
+script that starts a Flask web application.
 """
 from flask import Flask, render_template
 from models import storage
@@ -17,3 +17,7 @@ def teardown_db(exception):
 def states_list():
     data = storage.all("State")
     return render_template('7-states_list', data=data)
+
+
+if __name__ == "__main__":
+    app.run(host='0.0.0.0', port=5000)
