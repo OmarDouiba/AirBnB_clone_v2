@@ -3,7 +3,7 @@
 Script that starts a Flask web application
 """
 from flask import Flask, render_template
-from models import storage, State
+from models import storage
 
 app = Flask(__name__)
 
@@ -11,7 +11,7 @@ app = Flask(__name__)
 @app.route('/states_list', strict_slashes=False)
 def states_list():
     """View function that displays all states currently in storage"""
-    states = storage.all(State).values()
+    states = storage.all('State').values()
     return render_template('7-states_list.html', states=states)
 
 
