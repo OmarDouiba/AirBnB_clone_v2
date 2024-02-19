@@ -18,7 +18,7 @@ def states_list():
 @app.teardown_appcontext
 def tear_db(exception):
     """Closes the storage"""
-    return storage.close()
+    storage.close()
 
 
 if __name__ == '__main__':
