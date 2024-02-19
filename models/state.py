@@ -1,33 +1,32 @@
 #!/usr/bin/python3
-"""This is the state class"""
+"""Defines the State class."""
 import models
+from models import city
 from models.base_model import BaseModel, Base
-from models.city import City
-from os import getenv
 from sqlalchemy import Column, String
 from sqlalchemy.orm import relationship
 
+from os import getenv
+storage_type = getenv("HBNB_TYPE_STORAGE")
+
 
 class State(BaseModel, Base):
-    """Representation of state """
-    if getenv('HBNB_TYPE_STORAGE') == 'db':
-        __tablename__ = 'states'
+    """Represent a state."""
+    __tablename__ = 'states'
+
+    if storage_type == "db":
         name = Column(String(128), nullable=False)
-        cities = relationship("City", backref="state")
+        cities = relationship("City", backref="state",
+                              cascade="all, delete-orphan")
     else:
         name = ""
 
-    def __init__(self, *args, **kwargs):
-        """initializes state"""
-        super().__init__(*args, **kwargs)
-
-    if getenv('HBNB_TYPE_STORAGE') != 'db':
         @property
         def cities(self):
-            """getter for list of city instances related to the state"""
-            city_list = []
-            all_cities = models.storage.all(City)
-            for city in all_cities.values():
-                if city.state_id == self.id:
-                    city_list.append(city)
-            return city_list
+            from models import storage
+            citylist = []
+            citiesAll = storage.all(city)
+            for cities in citiesAll.values():
+                if cities.state_id == self.id:
+                    citylist.append(cities)
+            return citylist

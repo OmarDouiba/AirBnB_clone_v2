@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-"""create a unique FileStorage instance for your application"""
+"""This module instantiates an object of class FileStorage"""
 from os import getenv
 
 if getenv('HBNB_TYPE_STORAGE') == 'db':
