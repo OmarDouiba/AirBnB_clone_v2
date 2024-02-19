@@ -1,8 +1,10 @@
 #!/usr/bin/python3
 """Starts a Flask web application"""
 
+
 from flask import Flask, render_template
 from models import storage
+from models import *
 from models.state import State
 
 app = Flask(__name__)
@@ -11,14 +13,14 @@ app = Flask(__name__)
 @app.route('/states_list', strict_slashes=False)
 def states_list():
     """Displays an HTML page with render template"""
-    states = storage.all(State)
-    return render_template('7-states_list.html', states=states)
+    States = storage.all(State)
+    return render_template('7-states_list.html', states=States)
 
 
 @app.teardown_appcontext
-def tear_down(exception):
+def tear_db(exception):
     """Closes the storage"""
-    storage.close()
+    return storage.close()
 
 
 if __name__ == '__main__':
